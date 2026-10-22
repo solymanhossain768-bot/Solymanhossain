@@ -275,4 +275,90 @@ export interface PrivacySettings {
   messagePermissions: 'everyone' | 'followers_only' | 'nobody';
   personalizedAdsConsent: boolean;
   aiSafetyScanningConsent: boolean;
+  blockedUsers?: string[];
 }
+
+export interface Message {
+  id: string;
+  conversationId: string;
+  senderId: string;
+  senderName: string;
+  senderAvatar: string;
+  content: string;
+  mediaUrl?: string;
+  mediaType?: 'image' | 'video' | 'file';
+  replyTo?: {
+    id: string;
+    senderName: string;
+    content: string;
+  };
+  status: 'sent' | 'delivered' | 'read';
+  createdAt: string;
+  reactions?: Record<string, string[]>; // emoji -> array of userIds
+}
+
+export interface ConversationParticipant {
+  id: string;
+  name: string;
+  username: string;
+  avatarUrl: string;
+  isVerified?: boolean;
+}
+
+export interface Conversation {
+  id: string;
+  participants: string[];
+  participantDetails: Record<string, ConversationParticipant>;
+  lastMessage?: {
+    content: string;
+    senderId: string;
+    timestamp: string;
+    status: 'sent' | 'delivered' | 'read';
+  };
+  unreadCount: Record<string, number>;
+  isMuted?: Record<string, boolean>;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface InAppNotification {
+  id: string;
+  type: 'message' | 'system' | 'award' | 'security';
+  title: string;
+  body: string;
+  conversationId?: string;
+  senderAvatar?: string;
+  senderId?: string;
+  createdAt: string;
+  read: boolean;
+}
+
+export interface BackupMetadata {
+  id: string;
+  timestamp: string;
+  recordCounts: {
+    users: number;
+    conversations: number;
+    messages: number;
+    posts: number;
+    moderation: number;
+    auditLogs: number;
+  };
+  fileSizeBytes: number;
+  checksum: string;
+  storageType: 'local_disk';
+  externalCloudReplicated: boolean;
+  retentionPolicy: string;
+}
+
+export interface AuditLogEntry {
+  id: string;
+  type: 'AUTH' | 'MESSAGE' | 'SECURITY' | 'MODERATION' | 'FINANCIAL' | 'BACKUP' | 'ACCOUNT_DELETE';
+  actorId: string;
+  actorRole: string;
+  action: string;
+  details: string;
+  ipAddress?: string;
+  timestamp: string;
+}
+
