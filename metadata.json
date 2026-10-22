@@ -1,0 +1,7 @@
+{
+  "name": "HARDBOARD",
+  "description": "HB Apps — Your Community. Your Voice. Modern social platform with creator monetization, Play Button awards, Note sharing, and content safety.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
